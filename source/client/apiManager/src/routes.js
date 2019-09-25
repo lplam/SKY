@@ -1,11 +1,12 @@
 import React from "react";
-import LoginPage from './pages/LoginPage/LoginPage'
-import HomePage from './pages/HomePage/HomePage'
+import LoginPage from './pages/LoginPage/LoginPage';
+import HomePage from './pages/HomePage/HomePage';
 import AdminPage from "./pages/AdminPage/AdminPage";
 import SignUpPage from './pages/SignUpPage/SignUpPage'
 import Services from "./pages/Services/Services";
-import Contacts from "./pages/Contacts/Contacts"
-import About from "./pages/About/About"
+import Contacts from "./pages/Contacts/Contacts";
+import About from "./pages/About/About";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 const routes = [
     {
       path: "/",
@@ -33,10 +34,13 @@ const routes = [
       main: ({match}) => <Contacts match = {match}/>
     },
     {
+      path: "/profile",
+      main: ({match}) => <ProfilePage match = {match}/>
+    },
+    {
       path: "/About",
       main: ({match}) => <About match = {match}/>
-    }
-
-]
+    },
+  ] 
   
 export default routes;

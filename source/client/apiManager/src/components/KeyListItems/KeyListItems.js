@@ -12,7 +12,7 @@ class KeyListItems extends Component {
     render() {
 
         var {product,index} = this.props;
-        var statusName  = "active"
+        var statusName = "active"
         var statusClass = product.status? 'default' : 'warning'
         return (
        

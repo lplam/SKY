@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import MenuPage from './components/Menu/Menu'
 
 import routes from './routes'
 

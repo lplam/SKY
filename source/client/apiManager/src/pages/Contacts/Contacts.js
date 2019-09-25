@@ -92,9 +92,4 @@ class Contacts extends Component {
 }
 
 
-
-
-
-
-
 export default Contacts;

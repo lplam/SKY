@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import list_account from "../../pages/Database/JsonDB";
 import {Redirect} from "react-router-dom";
 import API from '../../pages/Database/APICnn';
 const api = new API();
@@ -65,7 +64,6 @@ class Menu extends Component{
         }
 
         return(
-
                 <div id="padding-sticky" className="header">
                     <div id="sticky-header" >
                         <Link to = "/">
@@ -88,6 +86,7 @@ class Menu extends Component{
                             <li className="alway"><Link to = "/contacts">Contact</Link></li>
                             <li className="alway"><Link to = "/products">Blog</Link></li>
                             <li className="alway"><Link to = "/about">About Us</Link> </li>
+                            <li className="alway"><Link to = "/profile">Profile</Link></li>
                         </ul>
                         </nav>
                         <div className = "toggle"><i className="fa fa-bars menu"></i></div>

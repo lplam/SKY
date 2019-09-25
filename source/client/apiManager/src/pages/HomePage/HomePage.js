@@ -3,16 +3,9 @@ import {Link} from "react-router-dom"
 import MenuPage from './../../components/Menu/Menu'
 import Footer from  "./../../components/Footer/Footer"
 class HomePage extends Component{
-
-
-
     render(){
         return(
             <div>
-
-
-
-
                 <div id="top-header" className="hello">
                     <div id = "contact-header">
                         <span className = "green-color mr-r-50"><i className="fa fa-question-circle-o green-color icon-mr-r-10" aria-hidden="true"></i>Have a question?</span>
@@ -119,7 +112,7 @@ class HomePage extends Component{
 
 
 
-              <Footer></Footer>
+                <Footer></Footer>
             </div>
 
         )

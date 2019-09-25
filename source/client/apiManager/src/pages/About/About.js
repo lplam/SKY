@@ -8,11 +8,8 @@ class About extends Component{
     render(){
         return(
 
-  
-            <div>
-
-
-  <link rel="stylesheet" href="./servicesStyle/css/style.css"/>
+              <div>
+              <link rel="stylesheet" href="./servicesStyle/css/style.css"/>
                 <div id="top-header" className="hello">
                     <div id = "contact-header">
                         <span className = "green-color mr-r-50"><i className="fa fa-question-circle-o green-color icon-mr-r-10" aria-hidden="true"></i>Have a question?</span>
