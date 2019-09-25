@@ -35,6 +35,10 @@ const routes = [
     {
       path: "/About",
       main: ({match}) => <About match = {match}/>
+    },
+    {
+      path: "/profile",
+      main: ({match}) => <ProfilePage match = {match}/>
     }
 
 ]
