@@ -1,36 +1,73 @@
 import React, {Component} from "react";
 import MenuPage from './../../components/Menu/Menu'
-
+import Header from './../../components/Header/header'
+import axios from 'axios'
+import {Redirect} from "react-router-dom";
 
 class ProfilePage extends Component{
+
+  constructor(props) {
+    super(props);
+    this.handlePassword = this.handlePassword.bind(this);
+    this.handleUsername = this.handleUsername.bind(this);
+    this.handleLastname = this.handleLastname.bind(this);
+    this.handleFirstname = this.handleFirstname.bind(this);
+    this.edit = this.edit.bind(this);
+    this.state = {
+      laccount :JSON.parse(localStorage.getItem('laccount')) || [],
+      lpassword: JSON.parse(localStorage.getItem('lpassword')) || [],
+      first_name: "",
+      last_name: "",
+      redirect: false
+    };
+  }
+  RenderRedirect = ()=>{
+    if(this.state.redirect)
+      return <Redirect to = '/profile'></Redirect>
+  }
+
+    edit = () =>{
+      axios.put('http://5d8a1f54b2568e0014d884cb.mockapi.io/api/v1/accounts/11',{
+        account: this.state.laccount,
+        password: this.state.lpassword,
+        name: this.state.last_name + " " + this.state.first_name 
+      })
+      .then(response =>{
+        console.log(response);
+        console.log("1");
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  
+    }
+    handleUsername(e)
+    {
+      this.setState({laccount: e.target.value});
+      console.log(this.state.laccount);
+    }
+
+    handlePassword(e)
+    {
+      this.setState({lpassword: e.target.value});
+    }
+    handleFirstname(e)
+    {
+      this.setState({first_name: String(e.target.value)});
+      console.log(this.state.first_name);
+    }
+    handleLastname(e)
+    {
+      this.setState({last_name: String(e.target.value)});
+    }
+   
+
     render(){
         return(
-        <div>
-              <link rel="stylesheet" href="./servicesStyle/css/style.css"/>
-                <div id="top-header" className="hello">
-                    <div id = "contact-header">
-                        <span className = "green-color mr-r-50"><i className="fa fa-question-circle-o green-color icon-mr-r-10" aria-hidden="true"></i>Have a question?</span>
-                        <span className = "green-color mr-r-50"><i className="fa fa-phone green-color icon-mr-r-10" aria-hidden="true"></i>0344 656 534</span>
-                        <span className = "green-color mr-r-50"><i className="fa fa-envelope-o green-color icon-mr-r-10" aria-hidden="true"></i>sound@myapi.com</span>
-                    </div>
-
-                <div class="ml-auto">
-                    <div class="social-wrap">
-                    <a href="#"><span class="icon-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></span></a>
-                    <a href="#"><span class="icon-twitter"><i class="fa fa-twitter" aria-hidden="true"></i></span></a>
-                    <a href="#"><span class="icon-linkedin"><i class="fa fa-instagram" aria-hidden="true"></i></span></a>
-
-                    <a href="#" class="d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
-                        class="icon-menu h3"></span></a>
-                   </div>
-               </div>                
-
-                </div>   
-
+          <div>
+                <Header/>
                 <MenuPage match = {this.props.match}/>
 
-                <div>
-        
         <link href="./servicesStyle/css/bootstrap.min.css" rel="stylesheet" />  
 
         <hr />
@@ -61,23 +98,22 @@ class ProfilePage extends Component{
             <div className="col-sm-9">
               <ul className="nav nav-tabs">
                 <li className="active"><a data-toggle="tab" href="#home">Home</a></li>
-                <li><a data-toggle="tab" href="#messages">Menu 1</a></li>
-                <li><a data-toggle="tab" href="#settings">Menu 2</a></li>
+                
               </ul>
               <div className="tab-content">
                 <div className="tab-pane active" id="home">
                   <hr />
-                  <form className="form" action="##" method="post" id="registrationForm">
+                  <div className="form" id="registrationForm">
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="first_name" style={{margin:"5px"}}><h4>First name</h4></label>
-                        <input type="text" className="form-control" style={{height:"34px" ,margin:"5px"}} name="first_name" id="first_name" placeholder="first name" title="enter your first name if any." />
+                        <input type="text" className="form-control" style={{height:"34px" ,margin:"5px"}} name="first_name" id="first_name" placeholder="first name" title="enter your first name if any." onChange={this.handleFirstname} />
                       </div>
                     </div>
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="last_name" style={{margin:"5px"}}><h4>Last name</h4></label>
-                        <input type="text" className="form-control"  style={{height:"34px" ,margin:"5px"}} name="last_name" id="last_name" placeholder="last name" title="enter your last name if any." />
+                        <input type="text" className="form-control"  style={{height:"34px" ,margin:"5px"}} name="last_name" id="last_name" placeholder="last name" title="enter your last name if any." onChange={this.handleLastname}/>
                       </div>
                     </div>
                     <div className="form-group">
@@ -95,7 +131,7 @@ class ProfilePage extends Component{
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="email" style={{margin:"5px"}}><h4>Username</h4></label>
-                        <input type="email" className="form-control" style={{height:"34px" ,margin:"5px"}} name="email" id="email" placeholder="you@email.com" title="enter your email." />
+                        <input type="text" className="form-control" style={{height:"34px" ,margin:"5px"}} name="email" id="email" placeholder="you@email.com" title="enter your email." onChange={this.handleUsername}/>
                       </div>
                     </div>
                     <div className="form-group">
@@ -107,7 +143,7 @@ class ProfilePage extends Component{
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="password" style={{margin:"5px"}}><h4>Password</h4></label>
-                        <input type="password" className="form-control"  style={{height:"34px" ,margin:"5px"}} name="password" id="password" placeholder="password" title="enter your password." />
+                        <input type="password" className="form-control"  style={{height:"34px" ,margin:"5px"}} name="password" id="password" placeholder="password" title="enter your password." onChange={this.handlePassword}/>
                       </div>
                     </div>
                     <div className="form-group">
@@ -119,142 +155,22 @@ class ProfilePage extends Component{
                     <div className="form-group">
                       <div className="col-xs-12">
                         <br />
-                        <button className="btn btn-lg btn-success" type="submit"><i className="glyphicon glyphicon-ok-sign" /> Save</button>
+                        {this.RenderRedirect}
+                        <button className="btn btn-lg btn-success" onClick={this.edit}><i className="glyphicon glyphicon-ok-sign" /> Save</button>
                         <button className="btn btn-lg" type="reset"><i className="glyphicon glyphicon-repeat" /> Reset</button>
                       </div>
                     </div>
-                  </form>
+                  </div>
                   <hr />
                 </div>{/*/tab-pane*/}
-                <div className="tab-pane" id="messages">
-                  <h2 />
-                  <hr />
-                  <form className="form" action="##" method="post" id="registrationForm">
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="first_name" style={{margin:"5px"}}><h4>First name</h4></label>
-                        <input type="text" className="form-control" style={{height:"34px" ,margin:"5px"}} name="first_name" id="first_name" placeholder="first name" title="enter your first name if any." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="last_name" style={{margin:"5px"}}><h4>Last name</h4></label>
-                        <input type="text" className="form-control" style={{height:"34px" ,margin:"5px"}} name="last_name" id="last_name" placeholder="last name" title="enter your last name if any." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="phone" style={{margin:"5px"}}><h4>Phone</h4></label>
-                        <input type="text" className="form-control" style={{height:"34px" ,margin:"5px"}} name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="mobile" style={{margin:"5px"}}><h4>Mobile</h4></label>
-                        <input type="text" className="form-control" style={{height:"34px" ,margin:"5px"}} name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="email" style={{margin:"5px"}}><h4>Email</h4></label>
-                        <input type="email" className="form-control" style={{height:"34px" ,margin:"5px"}} name="email" id="email" placeholder="you@email.com" title="enter your email." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="email" style={{margin:"5px"}}><h4>Location</h4></label>
-                        <input type="email" className="form-control" style={{height:"34px" ,margin:"5px"}} id="location" placeholder="somewhere" title="enter a location" />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="password" style={{margin:"5px"}}><h4>Password</h4></label>
-                        <input type="password" className="form-control" style={{height:"34px" ,margin:"5px"}} name="password" id="password" placeholder="password" title="enter your password." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="password2" style={{margin:"5px"}}><h4>Verify</h4></label>
-                        <input type="password" className="form-control" style={{height:"34px" ,margin:"5px"}} name="password2" id="password2" placeholder="password2" title="enter your password2." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-12">
-                        <br />
-                        <button className="btn btn-lg btn-success" type="submit"><i className="glyphicon glyphicon-ok-sign" /> Save</button>
-                        <button className="btn btn-lg" type="reset"><i className="glyphicon glyphicon-repeat" /> Reset</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>{/*/tab-pane*/}
-                <div className="tab-pane" id="settings">
-                  <hr />
-                  <form className="form" action="##" method="post" id="registrationForm">
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="first_name" style={{margin:"5px"}}><h4>First name</h4></label>
-                        <input type="text" className="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="last_name" style={{margin:"5px"}}><h4>Last name</h4></label>
-                        <input type="text" className="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="phone" style={{margin:"5px"}}><h4>Phone</h4></label>
-                        <input type="text" className="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="mobile" style={{margin:"5px"}}><h4>Mobile</h4></label>
-                        <input type="text" className="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="email" style={{margin:"5px"}}><h4>Email</h4></label>
-                        <input type="email" className="form-control" name="email" id="email" placeholder="you@email.com" title="enter your email." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="email" style={{margin:"5px"}}><h4>Location</h4></label>
-                        <input type="email" className="form-control" id="location" placeholder="somewhere" title="enter a location" />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="password" style={{margin:"5px"}}><h4>Password</h4></label>
-                        <input type="password" className="form-control" name="password" id="password" placeholder="password" title="enter your password." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="password2" style={{margin:"5px"}}><h4>Verify</h4></label>
-                        <input type="password" className="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2." />
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <div className="col-xs-12">
-                        <br />
-                        <button className="btn btn-lg btn-success pull-right" type="submit"><i className="glyphicon glyphicon-ok-sign" /> Save</button>
-                        {/*<button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>*/}
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>{/*/tab-pane*/}
-            </div>{/*/tab-content*/}
+                
           </div>{/*/col-9*/}
         </div>{/*/row*/}
 
       </div>
       
             
+                </div>
                 </div>
         )
     }

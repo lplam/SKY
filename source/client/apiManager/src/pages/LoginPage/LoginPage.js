@@ -3,13 +3,8 @@ import {Link, Redirect} from "react-router-dom";
 import API from '../Database/APICnn';
 const api = new API();
 
-
-
-
 class LoginPage extends Component{
     
-
-
     constructor(props) {
       super(props);
       this.handlePassword = this.handlePassword.bind(this);
