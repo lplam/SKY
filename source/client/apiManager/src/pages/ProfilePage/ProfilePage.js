@@ -11,17 +11,19 @@ class ProfilePage extends Component{
 
   constructor(props) {
     super(props);
-    this.handlePassword = this.handlePassword.bind(this);
-    this.handleUsername = this.handleUsername.bind(this);
+    this.handleBank = this.handleBank.bind(this);
+    this.handlePhone = this.handlePhone.bind(this);
     this.handleLastname = this.handleLastname.bind(this);
     this.handleFirstname = this.handleFirstname.bind(this);
     this.edit = this.edit.bind(this);
     this.state = {
-      laccount :JSON.parse(localStorage.getItem('laccount')) || [],
-      lpassword: JSON.parse(localStorage.getItem('lpassword')) || [],
+      laccount :  [],
+      lpassword:  [],
       account: JSON.parse(localStorage.getItem('user')) || [],
       first_name: "",
       last_name: "",
+      phone:"",
+      bank:"",
       redirect: false,
       data: [],
       id: 0
@@ -36,6 +38,7 @@ class ProfilePage extends Component{
       })
       for(var i=0;i<this.state.data.length;i++)
       {
+        console.log(this.state.account)
         if(this.state.data[i].account === this.state.account)
         {
           var name = this.state.data[i].name.split(" ")
@@ -43,7 +46,11 @@ class ProfilePage extends Component{
             ...this.state,
             first_name: name.pop(),
             last_name: name.toString().split(",").join(" "),
-            id: this.state.data[i].id
+            id: this.state.data[i].id,
+            laccount:this.state.data[i].account,
+            lpassword:this.state.data[i].password,
+            phone:this.state.data[i].phone,
+            bank: this.state.data[i].numofbank
           })
           
         }
@@ -63,39 +70,37 @@ class ProfilePage extends Component{
       ...this.state,
       first_name:"",
       last_name:"",
-      laccount:"",
-      lpassword:""
+      phone:"",
+      bank:""
     })
   }
     edit = () =>{
+      console.log(this.state.id)
       axios.put(`http://5d8a1f54b2568e0014d884cb.mockapi.io/api/v1/accounts/${this.state.id}`,{
         account: this.state.laccount,
         password: this.state.lpassword,
+        phone: this.state.phone,
+        numofbank: this.state.bank,
         name: this.state.last_name + " " + this.state.first_name 
       })
       .then(response =>{
-        console.log(response);
-        console.log("1");
+        alert("edit succeed");
       })
       .catch(err => {
         console.log(err);
       });
   
     }
-    handleUsername(e)
-    {
-      this.setState({laccount: e.target.value});
-      console.log(this.state.laccount);
+    handlePhone(e){
+      this.setState({phone: String(e.target.value)});
     }
-
-    handlePassword(e)
+    handleBank(e)
     {
-      this.setState({lpassword: e.target.value});
+      this.setState({bank: String(e.target.value)});
     }
     handleFirstname(e)
     {
       this.setState({first_name: String(e.target.value)});
-      console.log(this.state.first_name);
     }
     handleLastname(e)
     {
@@ -158,39 +163,29 @@ class ProfilePage extends Component{
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="phone" ><h4>Phone</h4></label>
-                        <input type="text" className="form-control"  name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any." />
+                        <input type="text" className="form-control"  name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any." onChange={this.handlePhone} value={this.state.phone}/>
                       </div>
                     </div>
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="mobile" ><h4>Card Number</h4></label>
-                        <input type="text" className="form-control"  name="mobile" id="mobile" placeholder="enter card number" title="enter your mobile number if any." />
+                        <input type="text" className="form-control"  name="mobile" id="mobile" placeholder="enter card number" title="enter your mobile number if any." onChange={this.handleBank} value={this.state.bank}/>
                       </div>
                     </div>
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="email" ><h4>Username</h4></label>
-                        <input type="text" className="form-control"  name="email" id="email" placeholder="you@email.com" title="enter your email." onChange={this.handleUsername} value={this.state.laccount}/>
+                        <input type="text" className="form-control"  name="email" id="email" placeholder="you@email.com" title="enter your email." value={this.state.laccount} readOnly />
                       </div>
                     </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="email" ><h4>Location</h4></label>
-                        <input type="email" className="form-control"  id="location" placeholder="somewhere" title="enter a location" />
-                      </div>
-                    </div>
+                    
                     <div className="form-group">
                       <div className="col-xs-6">
                         <label htmlFor="password" ><h4>Password</h4></label>
-                        <input type="password" className="form-control"   name="password" id="password" placeholder="password" title="enter your password." onChange={this.handlePassword} value={this.state.lpassword}/>
+                        <input type="password" className="form-control"   name="password" id="password" placeholder="password" title="enter your password." value={this.state.lpassword} readOnly/>
                       </div>
                     </div>
-                    <div className="form-group">
-                      <div className="col-xs-6">
-                        <label htmlFor="password2" ><h4>Verify</h4></label>
-                        <input type="password" className="form-control"  name="password2" id="password2" placeholder="password2" title="enter your password2." />
-                      </div>
-                    </div>
+                   
                     <div className="form-group">
                       <div className="col-xs-12">
                         <br />
