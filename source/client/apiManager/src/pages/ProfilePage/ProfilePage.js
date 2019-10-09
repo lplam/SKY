@@ -38,7 +38,6 @@ class ProfilePage extends Component{
       })
       for(var i=0;i<this.state.data.length;i++)
       {
-        console.log(this.state.account)
         if(this.state.data[i].account === this.state.account)
         {
           var name = this.state.data[i].name.split(" ")
@@ -55,9 +54,6 @@ class ProfilePage extends Component{
           
         }
       }
-      console.log(this.state.first_name)
-      console.log(this.state.last_name)
-
     })
     
   }
