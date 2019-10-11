@@ -1,7 +1,6 @@
 import GoogleLogin from 'react-google-login';
 import React,{Component} from 'react';
 import {Redirect} from "react-router-dom";
-import './../../App.css';
 
 
 class Google extends Component
@@ -46,7 +45,6 @@ class Google extends Component
             onSuccess={this.responseGoogle}
             onFailure={this.responseGoogle}
             cookiePolicy={'single_host_origin'}
-            className= "ggbtn"
           />
           )
     }

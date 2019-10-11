@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import routes from './routes'
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import './App.css';
-import MenuPage from './components/Menu/Menu'
-import TopHeader from './components/TopHeader/TopHeader'
+// import MenuPage from './components/Menu/Menu'
+// import TopHeader from './components/TopHeader/TopHeader'
 import Footer from "./components/Footer/Footer"
 
 
@@ -19,14 +19,12 @@ class App extends Component {
     }
     return (
         <Router>
-              <TopHeader/>
-              <MenuPage/>
+
           <div >
           <link rel="stylesheet" href="./servicesStyle/css/style.css"/>
          
             {this.showContentMenu(routes)}
           </div>
-          <Footer/>
         </Router>
     );
   }

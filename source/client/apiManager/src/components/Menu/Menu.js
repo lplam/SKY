@@ -17,7 +17,10 @@ class Menu extends Component{
           facebookuser: localStorage.getItem('FacebookUser'),
           googleuser: localStorage.getItem("GoogleUser"),
           redirect: false,
-          data: []
+          data: [],
+          check: "",
+          active: "",
+          avatar: ""
         };
       }
 
@@ -29,8 +32,28 @@ class Menu extends Component{
           })
         })
         
+      if(this.state.user != null || this.state.googleuser != null || this.state.facebookuser != null){
+        this.setState({
+            check: "1"
+          })
+      }
       }
 
+      componentDidMount(){
+       
+        if(this.state.check === "1"){
+            this.setState({
+                active: "active",
+                avatar : "https://consequenceofsound.net/wp-content/uploads/2019/07/joker-2019.jpg?quality=80&w=807"
+
+              })
+        }else{
+            this.setState({
+                active: "undefined"
+              })
+        }
+
+      }
 
     onClick_LogOutOrSignUp = ()=>{
         if(this.state.user || this.state.facebookuser || this.state.googleuser)
@@ -39,7 +62,8 @@ class Menu extends Component{
         this.setState({
             redirect: true
         })
-        window.location.reload();
+        this.props.history.push("/newlogin")
+        // window.location.reload();
     }
     }
 
@@ -58,7 +82,9 @@ class Menu extends Component{
         var iconlogin_profile = "fa fa-sign-in";
         var iconsingup_logout = "fa fa-user-plus";
         var substring = '';
-        var avatar = './servicesStyle/images/avatar.png';
+        var avatar = this.state.avatar;
+        let active = this.state.active
+
 
         if(this.state.facebookuser)
         {
@@ -78,6 +104,7 @@ class Menu extends Component{
             name = localStorage.getItem('GoogleName');
             iconlogin_profile = "fa fa-google";
             avatar = localStorage.getItem('GooglePicture');
+            
         }
        
         if(this.state.user)
@@ -91,14 +118,20 @@ class Menu extends Component{
                 {
                     name = value.name;
                     iconlogin_profile = "fa fa-user";
-                    avatar = value.avatar;
                 }
             });
         }
+        
 
         return(
                 
                 <div id="padding-sticky" className="header">
+                    {/* <div className="row">
+  <span>
+    <input className="clean-slide" id="age" type="text" placeholder="Go for the high score!" /><label for="age">Age</label>
+  </span>
+ 
+</div> */}
                     <div id="sticky-header" >
                         <Link to = "/">
                         <div id="branding" >
@@ -108,7 +141,7 @@ class Menu extends Component{
                         </Link>
                         <nav id = "togle">
                         <ul id = "res">
-                            <li className="hov alway"><a href="google.com">Products</a>
+                            <li className="hov alway"><Link to = "./products">Products</Link>
                             <ul>
                                 <li><a href="gl">Api Voice Into Words</a></li>
                                 <li><a href="gl">Api Word Into Voice</a></li>
@@ -122,23 +155,55 @@ class Menu extends Component{
                             
                         </ul>
                         </nav>
+                  
+                        <div className = {`rows ${active}rows`}>
+  <span>
+    <input className="clean-slide" id="age" type="text" placeholder="Search form" /><label>Search</label>
+  </span>
+<span><i className="fab fa-accessible-icon"></i></span>
+
+                        </div>
+                        
                         <div className = "toggle"><i className="fa fa-bars menu"></i></div>
                         {this.RenderRedirect()}
-                        <div className = "dropdown">
+                       
+                       
+                       
+                        {/* <div className = "dropdown">
                             <Avatar src= {avatar} size="50"  round = {true} className = "avatar-header"/>
-                                <div class="dropdown-content">
-                                    <Link to ={`/${name}`} className = "Link"><span><i class={iconlogin_profile} aria-hidden="true"></i>{"  "}{name}</span></Link>
-                                    <Link to = {`/${link}`} className = "Link"><span onClick = {this.onClick_LogOutOrSignUp}><i class={iconsingup_logout} aria-hidden="true"></i>{"  "}{log_out}</span></Link>
+                                <div className="dropdown-content">
+                                    <Link to ={`/${name}`} className = "Link"><span><i className={iconlogin_profile} aria-hidden="true"></i>{"  "}{name}</span></Link>
+                                    <Link to = {`/${link}`} className = "Link"><span onClick = {this.onClick_LogOutOrSignUp}><i className={iconsingup_logout} aria-hidden="true"></i>{"  "}{log_out}</span></Link>
                                 </div>
-                           </div>
-                            <span id = "btn-menu-hidden" ><i class="fa fa-bars fa-menu-hidden" aria-hidden="true"></i></span>
+                        </div> */}
+                        <div id="log-sig">
+
+                       
+                        <div className = {`dropdown ${active}none`}>
+                            <Avatar src= {avatar} size="50"  round = {true} className = "avatar-header"/>
+                                <div className="dropdown-content">
+                                    <div style = {{color: "#000000b5",borderBottom: "black solid 1px"}} id = "labelLoginName">Signed in as<br></br><span><strong style = {{fontSize : "15px" }}>{`${name}`}</strong></span></div>
+                                    <Link style = {{fontSize : "15px",color: "#000000b5"}} to ="/profile" className = "Link"><span><i className={iconlogin_profile} ></i>{"  "}{"Your profile"}</span></Link>
+                                    <Link style = {{fontSize : "15px",color: "#000000b5"}}  to ="/profile" className = "Link"><span><i className={iconlogin_profile} ></i>{"  "}{"Your products"}</span></Link>
+
+                                    <Link style = {{fontSize : "15px",color: "#000000b5"}}   to = {`/${link}`} className = "Link"><span onClick = {this.onClick_LogOutOrSignUp}><i className={iconsingup_logout} aria-hidden="true"></i>{"  "}{log_out}</span></Link>
+                                </div>
+                             </div>
+                            
+                            <Link className = {`${active}`} to = "/newlogin"><span id="login">{name}</span></Link>
+                            <Link className = {`${active}`} to = "/newsignup"><span id="sign-up" onClick = {this.onClick_LogOutOrSignUp}>{log_out}</span></Link>
+
+                
+                            
+                           
+                            <span id = "btn-menu-hidden" ><i className="fa fa-bars fa-menu-hidden" aria-hidden="true"></i></span>
                             <div className= "sticky-header-show-nobackground"></div>   
                     </div>
-
+                    </div>
                     <div className = "sticky-header-block" >
                         <div>
                             <nav id = "togle-block" >
-                                <div id = "btn-cancle-icon"><i class="fa fa-times fa-cancle-icon" aria-hidden="true"></i></div>
+                                <div id = "btn-cancle-icon"><i className="fa fa-times fa-cancle-icon" aria-hidden="true"></i></div>
                         <ul className = "spaceClickReturnWhiteColor">
                             <li><a href="/products">Products</a>
                             <ul>

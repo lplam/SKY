@@ -26,9 +26,12 @@ class ProfilePage extends Component{
       bank:"",
       redirect: false,
       data: [],
-      id: 0
+      id: 0,
+      user: localStorage.getItem('user')
     };
   }
+
+  
   componentWillMount() {
     api.getData().then(response => {
       console.log('Data fetched', response)
@@ -55,7 +58,9 @@ class ProfilePage extends Component{
         }
       }
     })
-    
+    if(this.state.user == null){
+      this.props.history.push("/")
+    }
   }
   RenderRedirect = ()=>{
     if(this.state.redirect)

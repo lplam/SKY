@@ -12,11 +12,11 @@ class TopHeader extends Component {
                         <span className = "green-color mr-r-50"><i className="fa fa-envelope-o green-color icon-mr-r-10" aria-hidden="true"></i>sound@myapi.com</span>
                     </div>
 
-                    <div class="ml-auto">
-                        <div class="social-wrap">
-                          <a href="#"><span class="icon-facebook"><i class="fa fa-facebook" aria-hidden="true"></i></span></a>
-                          <a href="#"><span class="icon-twitter"><i class="fa fa-twitter" aria-hidden="true"></i></span></a>
-                          <a href="#"><span class="icon-linkedin"><i class="fa fa-instagram" aria-hidden="true"></i></span></a>
+                    <div className="ml-auto">
+                        <div className="social-wrap">
+                          <a href="#"><span className="icon-facebook"><i className="fa fa-facebook" aria-hidden="true"></i></span></a>
+                          <a href="#"><span className="icon-twitter"><i className="fa fa-twitter" aria-hidden="true"></i></span></a>
+                          <a href="#"><span className="icon-linkedin"><i className="fa fa-instagram" aria-hidden="true"></i></span></a>
                         </div>
                     </div>                
             </div>   

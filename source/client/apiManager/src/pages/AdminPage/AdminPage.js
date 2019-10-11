@@ -15,7 +15,13 @@ class AdminPage extends Component {
       products: []
     };
   }
+ 
 
+  componentWillMount() {
+  if(this.state.user == null ){
+    this.props.history.push("/")
+  }
+}
   componentDidMount() {
     apiCall('users', 'GET', null).then(res => {
       this.setState({

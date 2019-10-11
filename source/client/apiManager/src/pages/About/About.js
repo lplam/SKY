@@ -7,11 +7,25 @@ import MenuPage from './../../components/Menu/Menu'
 import TopHeader from './../../components/TopHeader/TopHeader'
 class About extends Component{
 
+  constructor(props) {
+    super(props);
+    this.state = {
+           user: localStorage.getItem('user'),
+    };
+  }
+
+  componentWillMount() {
+  if(this.state.user == null ){
+    this.props.history.push("/")
+  }
+}
     render(){
         return(
 
   
             <div>
+              <TopHeader/>
+              <MenuPage/>
             <div className="site-wrap">
            <div className="container pt-5 mb-5">
                 <div className="row">
@@ -28,7 +42,7 @@ class About extends Component{
                       architecto, hic alias quia quisquam, obcaecati laborum dolores. Ex libero cumque veritatis numquam placeat?</p>
                   </div>
                 </div>
-              </div> --&gt;
+              </div> 
               <div className="site-section">
                 <div className="container">
                   <div className="row mb-5">
@@ -137,6 +151,8 @@ class About extends Component{
                 </div>
               </div>
               </div>
+              <Footer/>
+
           </div>
         )
     }

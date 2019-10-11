@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
 
+import MenuPage from './../../components/Menu/Menu'
+import Footer from './../../components/Footer/Footer'
+
+import TopHeader from './../../components/TopHeader/TopHeader'
 class Contacts extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+           user: localStorage.getItem('user'),
+    };
+  }
+
+  componentWillMount() {
+  if(this.state.user == null ){
+    this.props.history.push("/")
+  }
+}
     render() {
 
         return (
             <div>
-            
+                          <TopHeader/>
+              <MenuPage/>
             <div className="site-wrap">
               
            
@@ -60,6 +78,8 @@ class Contacts extends Component {
              
               
             </div>
+            <Footer/>
+
           </div>
         );
     }

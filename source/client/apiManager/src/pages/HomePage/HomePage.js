@@ -2,15 +2,32 @@ import React, {Component} from "react";
 import {Link} from "react-router-dom"
 import Footer from  "./../../components/Footer/Footer"
 import MenuPage from './../../components/Menu/Menu'
-
 import TopHeader from './../../components/TopHeader/TopHeader'
+
+
 class HomePage extends Component{
-
-
+    constructor(props) {
+        super(props);
+        this.state = {
+               user: localStorage.getItem('user'),
+        };
+      }
+    
+      componentWillMount() {
+        console.log("co' vao homepage")
+      if(this.state.user == null ){
+        this.props.history.push("/")
+      }
+    }
 
     render(){
+
+
+
         return(
             <div>
+            <TopHeader/>
+              <MenuPage/>
               <div className="slidershow middle">
         <div className="slides">
           <input type="radio" name="r" id="r1" defaultChecked />
@@ -22,7 +39,7 @@ class HomePage extends Component{
             <img style = {{position : "absolute", top: "-144px",marginTop: "-150px",height: "177%"}} src="./loginStyle/img/showcase.jpg" alt="" />
           </div>
           <div className="slide">
-            <img style = {{ position : "absolute", top: "-144px",marginTop: "-150px",height: "177%"}} src="./aboutStyle/2.jpg" alt="" />
+            <img style = {{ position : "absolute", top: "-144px",marginTop: "-150px",height: "177%"}} src="./loginStyle/img/showcase.jpg" alt="" />
           </div>
           <div className="slide">
             <img style = {{position : "absolute", top: "-144px",marginTop: "-150px",height: "177%"}} src="./aboutStyle/3.jpg" alt="" />
@@ -75,45 +92,45 @@ class HomePage extends Component{
                 
                 </section>
 
-                <div class="site-section">
+                <div className="site-section">
 
-                    <div class="justify-content-center text-center why-academics">
-                    <div class="mb-5 ">
-                        <h2 class="section-title-underline mb-5">
+                    <div className="justify-content-center text-center why-academics">
+                    <div className="mb-5 ">
+                        <h2 className="section-title-underline mb-5">
                         <span>Why Academics Works</span>
                         </h2>
                     </div>
                     </div>
                     <div className = "container">
-                    <div class="row">
-                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <div className="row">
+                    <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
 
-                        <div class="features-1 feature-1 border">
+                        <div className="features-1 feature-1 border">
                         
-                        <div class="feature-1-content">
+                        <div className="feature-1-content">
                             <h2>Api Voice Into Word</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-                            <p><a href="#" class="btn btn-primary px-4 rounded-0">Learn More</a></p>
+                            <p><a href="#" className="btn btn-primary px-4 rounded-0">Learn More</a></p>
                         </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                        <div class="features-1 feature-1 border">
+                    <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                        <div className="features-1 feature-1 border">
                        
-                        <div class="feature-1-content">
+                        <div className="feature-1-content">
                             <h2>Api Word Into Voice</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-                            <p><a href="#" class="btn btn-primary px-4 rounded-0">Learn More</a></p>
+                            <p><a href="#" className="btn btn-primary px-4 rounded-0">Learn More</a></p>
                         </div>
                         </div> 
                     </div>
-                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                        <div class="features-1 feature-1 border">
+                    <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                        <div className="features-1 feature-1 border">
                         
-                        <div class="feature-1-content">
+                        <div className="feature-1-content">
                             <h2>Api English Into Vietnamese</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit morbi hendrerit elit</p>
-                            <p><Link to = "/products" class="btn btn-primary px-4 rounded-0">Learn More</Link></p>
+                            <p><Link to = "/products" className="btn btn-primary px-4 rounded-0">Learn More</Link></p>
                         </div>
                         </div> 
                     </div>
@@ -122,6 +139,7 @@ class HomePage extends Component{
     </div>
 
 
+    <Footer/>
 
             </div>
 
