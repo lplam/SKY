@@ -26,7 +26,8 @@ class HomePage extends Component{
 
         return(
             <div>
-            
+            <TopHeader/>
+              <MenuPage/>
               <div className="slidershow middle">
         <div className="slides">
           <input type="radio" name="r" id="r1" defaultChecked />
@@ -138,7 +139,7 @@ class HomePage extends Component{
     </div>
 
 
-   
+    <Footer/>
 
             </div>
 

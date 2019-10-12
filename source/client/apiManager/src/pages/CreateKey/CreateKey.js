@@ -86,7 +86,9 @@ create = () =>{
 
           
             <div>
-            
+              <TopHeader/>
+              <MenuPage/>
+
               <div id = "backgroundForm"><div id = "supCredit">
                   <span id = "card1">
                       <img src ="credit1.png"></img>

@@ -62,7 +62,8 @@ class Menu extends Component{
         this.setState({
             redirect: true
         })
-      window.location.reload();
+        this.props.history.push("/newlogin")
+        // window.location.reload();
     }
     }
 

@@ -22,7 +22,8 @@ class Contacts extends Component {
 
         return (
             <div>
-                      
+                          <TopHeader/>
+              <MenuPage/>
             <div className="site-wrap">
               
            
@@ -77,7 +78,7 @@ class Contacts extends Component {
              
               
             </div>
-           
+            <Footer/>
 
           </div>
         );
