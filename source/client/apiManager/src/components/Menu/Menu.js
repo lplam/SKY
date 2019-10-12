@@ -104,6 +104,7 @@ class Menu extends Component{
             name = localStorage.getItem('GoogleName');
             iconlogin_profile = "fa fa-google";
             avatar = localStorage.getItem('GooglePicture');
+            console.log("ádasdasdasdasd")
             
         }
        

@@ -3,6 +3,8 @@ import React, {Component} from "react";
 
 import {Link, Redirect} from "react-router-dom";
 import API from '../Database/APICnn';
+import Facebook from "../LoginPage/Facebook";
+import Google from "../LoginPage/Google"
 
 const api = new API();
 
@@ -153,6 +155,9 @@ class NewLoginPage extends Component{
           <fieldset >
             <button name="submit" type="button" id="contact-submit" onClick = {this.signIn} tabIndex = {3} >Sign In</button>
           </fieldset>
+
+          <Facebook></Facebook>
+          <Google></Google>
           
           <p style = {{float : "left"}}className="copyright" tabIndex = {4}>Are you <Link to = "/newlogin">Forgot password?</Link></p>
           <p style = {{marginLeft: "222px"}} className="copyright" tabIndex = {5}><Link to = "/newsignup">Sign up now</Link></p>

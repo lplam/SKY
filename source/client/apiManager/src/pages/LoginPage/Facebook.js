@@ -31,8 +31,6 @@ class Facebook extends Component
     localStorage.setItem('FacebookName',this.state.name);
     localStorage.setItem('FacebookID',this.state.userID);
     localStorage.setItem('FacebookPicture',this.state.picture);
-    window.location.reload();
-    
   }
 
 
@@ -51,7 +49,7 @@ class Facebook extends Component
     }
     if(localStorage.getItem('FacebookUser'))
     {
-        return <Redirect to = '/'></Redirect>
+        return <Redirect to = '/homepage'></Redirect>
     }
     else
     {

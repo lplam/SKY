@@ -3,7 +3,7 @@ import axios from 'axios'
 class API {
   getData = () => {
     return axios
-      .get('http://5d8a1f54b2568e0014d884cb.mockapi.io/api/v1/accounts')
+      .get('https://forth-heroku-app.herokuapp.com/users')
       .then(function(response) {
         if (response.status === 200 && response != null) {
           var data = response.data
@@ -38,7 +38,7 @@ class API {
   putData = (data, id) =>{
     return axios({
       method: 'put',
-      url : `http://5d8a1f54b2568e0014d884cb.mockapi.io/api/v1/accounts/${id}`,
+      url : `https://forth-heroku-app.herokuapp.com/users/${id}`,
       data: data
     })
     .then(function(response){
@@ -52,7 +52,7 @@ class API {
   putDataWithParamAccount = (data, Account) =>{
     return axios({
       method: 'put',
-      url : `http://5d8a1f54b2568e0014d884cb.mockapi.io/api/v1/accounts`,
+      url : `https://forth-heroku-app.herokuapp.com/users`,
       data: data,
       params: {
         account: 'account1'
@@ -69,7 +69,7 @@ class API {
   getDataWithAccountParams = (account) =>
   {
     return axios
-      .get('http://5d8a1f54b2568e0014d884cb.mockapi.io/api/v1/accounts', {
+      .get('https://forth-heroku-app.herokuapp.com/users', {
         params: {
           account: account
         }
@@ -92,8 +92,9 @@ class API {
 
   postData = (data)=>{
     return axios
-    .post('http://5d8a1f54b2568e0014d884cb.mockapi.io/api/v1/accounts',
+    .post('https://forth-heroku-app.herokuapp.com/users',
     {
+      id: 0,
       account : data.account,
       password: data.password,
       name: data.name,
