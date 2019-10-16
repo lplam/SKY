@@ -1,25 +1,28 @@
 import React, {Component} from "react";
-import API from '../Database/APICnn';
+import API from './../../pages/Database/APICnn';
 import '../../App.css';
 import ReceiveKey from "./ReceiveKey"
 import {Link, Redirect, Route} from "react-router-dom";
 import { Switch, BrowserRouter as Router } from "react-router-dom";
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const api = new API();
 class CreateKey extends Component{
 
   constructor(props) {
     super(props);
-    this.create = this.create.bind(this)
+    this.create = this.create.bind(this);
+    this.dashboard = this.dashboard.bind(this);
     this.state = {
       maccount :JSON.parse(localStorage.getItem('laccount')) || '',
       mpassword: JSON.parse(localStorage.getItem('lpassword')) || '',
       user: localStorage.getItem('user'),
       facebookuser: localStorage.getItem('FacebookUser'),
       googleuser: localStorage.getItem("GoogleUser"),
-
       data: [],
-      name : "",
+      key: "yourkey",
+      copied: false,
+      name : ""
     };
   }
 
@@ -75,18 +78,26 @@ create = () =>{
   }
 
   api.GenKey(data).then(response =>{
-    localStorage.setItem("apikey", response.data);
-    localStorage.setItem("redirectrekey", true)
+    this.setState({
+      key: response.data
+    })  
   })
 }
 
-
+dashboard = ()=>{
+  localStorage.setItem("dashboard" , true);
+  window.location.reload();
+}
 
     render(){
         let name = this.state.name
         let phone = this.state.phone
         let card = this.state.bank
-     
+        if(localStorage.getItem("dashboard"))
+        {
+          localStorage.removeItem("dashboard")
+          return <Redirect to = "/dashboard"></Redirect>
+        }
         return(
 
           
@@ -125,13 +136,36 @@ create = () =>{
             <label  style={{color: "black"}}>Your phone number<input type="text" name="field6" /></label>
           </div>
           <div className="button-section">
-            <Link to = "/receivekey"> <input type="button" value = "Create" name="Sign Up" onClick ={this.create} /></Link>
+            <input type="button" value = "Create" name="Sign Up"  class="btn btn-primary" onClick = {this.create} data-toggle="modal" href='#modal-id'/>
             <span className="privacy-policy">
               <input type="checkbox" name="field7" />You agree to our rules. 
             </span>
           </div>
         </form>
       </div>
+          <div class="modal fade" id="modal-id">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">Your key</h4>
+                </div>
+                <div class="modal-body">
+                <input type="text" name="" id="input" class="form-control" value={this.state.key}/>
+                </div>
+                <div class="modal-footer">
+                <CopyToClipboard text={this.state.key}
+                        onCopy={() => this.setState({copied: true})}>
+                         <button type="button" class="btn btn-success" >COPY</button>
+                    </CopyToClipboard>
+                {this.state.copied ? <span style={{color: 'red'}}>Copied.</span> : null}
+              
+                  <button type="button" class="btn btn-default" onClick = {this.dashboard}>DONE</button>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+          
           </div>
         )
     }

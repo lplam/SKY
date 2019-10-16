@@ -10,11 +10,11 @@ class ReceiveKey extends Component{
     }
 
     render(){
-        
+        var key = localStorage.getItem("apikey");
         return(
             <div>
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                    <input type="text" name="" id="input" class="form-control" value={this.state.key}  style={{width:"600px"}}/>
+                    <input type="text" name="" id="input" class="form-control" value={key}  style={{width:"600px"}}/>
                     <button type="button" class="btn btn-success">COPY</button>
                     <button type="button" class="btn btn-warning">NEXT</button>
                 </div>
