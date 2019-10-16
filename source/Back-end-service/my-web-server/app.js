@@ -6,7 +6,12 @@ const app = express();
 
 const bodyparser = require('body-parser');
 
+var cors = require('cors');
+
+app.use(cors())
+
 app.use(bodyparser.json());
+
 
 var mysqlCNN = mysql.createConnection({
     host : 'sql12.freemysqlhosting.net',
@@ -23,8 +28,11 @@ mysqlCNN.connect((err) =>{
         console.log("error!: " + JSON.stringify(err, undefined,2))
 })
 
-app.listen(4000);
+app.listen(process.env.PORT||4000);
 
+app.get("/", (req,res)=>{
+    res.send("đây là trang chủ")
+})
 
 app.get('/users', (req,res)=>{
     mysqlCNN.query("SELECT * FROM manuser", (err,rows,fields)=>{
@@ -80,11 +88,6 @@ app.post('/users', (req,res)=>{
         }
     })
 })
-
-function getdata(id){
-
-    return result;
-}
 
 app.put('/users', async (req,res)=>{
     var emp = req.body;
@@ -154,7 +157,7 @@ app.patch('/users', (req,res)=>{
                     else{
                         console.log(err);
                     }       
-    })
+                })
             }
             else
             {
@@ -169,6 +172,31 @@ app.patch('/users', (req,res)=>{
     
 })
 
+s4 = ()=>{
+    return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+  }
 
+randomkey = ()=>
+  {
+    return s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4() + s4();
+  }
 
-
+app.post('/key',(req,res)=>{
+    var emp = req.body;
+    if(emp.method === 'get-key')
+    {
+        var key = randomkey();
+        key = key + emp.start + emp.user;
+        var sql = `SET @id = '${emp.id}';SET @value = '${key}';SET @type = '${emp.type}';SET @user = '${emp.user}';SET @start = '${emp.start}';\
+        CALL key_insert_edit(@id,@value,@type,@user,@start);`;
+        mysqlCNN.query(sql, (err,rows,fields)=>{
+            if(!err)
+            {
+                res.send(key);
+            }
+            else{
+                console.log(err);
+            }
+        })
+    }
+})

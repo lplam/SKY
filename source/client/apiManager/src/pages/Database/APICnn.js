@@ -90,6 +90,22 @@ class API {
       })
   }
 
+  GenKey = (data) => {
+    return axios
+      .post('http://localhost:4000/key',
+      {
+        method: data.method,
+        id: data.id,
+        type: data.type,
+        user: data.user,
+        start: data.start
+      })
+      .catch(function(error) {
+        console.log(error)
+      })
+  }
+
+
   postData = (data)=>{
     return axios
     .post('https://forth-heroku-app.herokuapp.com/users',

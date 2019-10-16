@@ -10,6 +10,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage"
 import NewLoginPage from "./pages/NewLoginPage/NewLoginPage";
 import NewSignUpPage from "./pages/NewSignupPage/NewSignUpPage";
 import CreateKey from "./pages/CreateKey/CreateKey";
+import ReceiveKey from "./pages/CreateKey/ReceiveKey";
 // const routes = [
 //     {
 //       path: "/",
@@ -91,6 +92,10 @@ const routes = [
     main: ({match,history}) => <About history = {history} match = {match}/>
   },
   {
+    path: "/receivekey",
+    main: ({match,history}) => <ReceiveKey match = {match} history = {history}/>
+  },
+  {
     path: "/profile",
     main: ({match,history}) => <ProfilePage history = {history} match = {match}/>
   },
@@ -103,6 +108,7 @@ const routes = [
     main: ({match,history}) => <NewSignUpPage match = {match} history = {history}/>
 
   },
+  
   {
     path: "/createkey",
     main: ({match,history}) => <CreateKey match = {match} history = {history}/>

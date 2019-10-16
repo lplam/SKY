@@ -1,14 +1,10 @@
 import React, {Component} from "react";
+import API from '../Database/APICnn';
+import '../../App.css';
+import ReceiveKey from "./ReceiveKey"
+import {Link, Redirect, Route} from "react-router-dom";
+import { Switch, BrowserRouter as Router } from "react-router-dom";
 
-import MenuPage from './../../components/Menu/Menu'
-
-import TopHeader from './../../components/TopHeader/TopHeader'
-
-import {Link} from "react-router-dom";
-import {Redirect} from "react-router-dom";
-import API from './../../pages/Database/APICnn';
-import Avatar from 'react-avatar';
-import '../../App.css'
 const api = new API();
 class CreateKey extends Component{
 
@@ -23,7 +19,7 @@ class CreateKey extends Component{
       googleuser: localStorage.getItem("GoogleUser"),
 
       data: [],
-      name : ""
+      name : "",
     };
   }
 
@@ -62,7 +58,6 @@ class CreateKey extends Component{
     })
     
   if(this.state.user == null ){
-    this.props.history.push("/")
   }
   }
 
@@ -71,8 +66,18 @@ class CreateKey extends Component{
 
 
 create = () =>{
-    alert("The key has been sent to your phone and email \nKey:  5c9676a997f01eb3d30e0516" )
-    this.props.history.push("/products")
+  var data = {
+    method: "get-key",
+    id: "0",
+    type: "free-trial",
+    user: "128s0209",
+    start: Date.now()
+  }
+
+  api.GenKey(data).then(response =>{
+    localStorage.setItem("apikey", response.data);
+    localStorage.setItem("redirectrekey", true)
+  })
 }
 
 
@@ -86,9 +91,7 @@ create = () =>{
 
           
             <div>
-              <TopHeader/>
-              <MenuPage/>
-
+              
               <div id = "backgroundForm"><div id = "supCredit">
                   <span id = "card1">
                       <img src ="credit1.png"></img>
@@ -122,7 +125,7 @@ create = () =>{
             <label  style={{color: "black"}}>Your phone number<input type="text" name="field6" /></label>
           </div>
           <div className="button-section">
-            <input type="button" value = "Create" name="Sign Up" onClick ={this.create} />
+            <Link to = "/receivekey"> <input type="button" value = "Create" name="Sign Up" onClick ={this.create} /></Link>
             <span className="privacy-policy">
               <input type="checkbox" name="field7" />You agree to our rules. 
             </span>
